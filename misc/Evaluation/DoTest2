@@ -1,0 +1,65 @@
+#!/bin/csh -f
+#
+#
+#  $1 : OXTAGGEDTEST         $2 : compare
+#
+#
+if ($#argv == 0) then       # if no argument
+   echo "Tagging 정확률을 나누어 비교한다."
+   echo "Known , Unknown을 나누어 계산"
+   echo "Usage : DoTest2 이미-태깅된-것 KTS에-의해-태깅된-것"
+   exit 1
+endif
+
+awk ' { print "o", $0 } ' $1 > $1.tf
+
+diff $1.tf $2 | ediff >! $2.t1
+../spltdif $2.t1 $2.k_f $2.u_f $2.e_f
+#
+echo 'splitdif done....'
+#
+awk ' $1 ~ /o/ { print $2 } $1 !~ /o/ { print $0 } ' $2.k_f >! $2.k_ff
+awk ' { print $1 } ' $2.k_ff >! $2.k_fff
+#
+echo 'getting known word done....'
+#
+echo '********The number of failures of Known Word*********'
+../calcdiff $2.k_fff
+#
+echo '********The number of failures of UnKnown Word*******'
+awk ' $1 == "--------" { print $1 } $1 != "--------" { print $2 } ' $2.u_f >! $2.u_ff
+../calcdiff $2.u_ff
+
+#
+#
+#/bin/rm $2.k_f
+#/bin/rm $2.k_ff
+
+grep "^x " $2.t1 >! $2.t11
+awk ' { print $2 } ' $2.t11 >! $2.t111
+/bin/rm $2.t11
+echo '****The number of Unknown Eojeol****'
+wc $2.t111 | awk ' { print $1 } '
+
+#
+echo '****The number of Unknown Morpheme***'
+grep "^o " $2.u_f | awk ' { print $2 } ' >! $2.u_fffff
+awk -F+ ' { SS = SS + NF } END { print SS } ' $2.u_fffff
+#/bin/rm $2.u_ff
+
+/bin/rm $1.tf
+
+/bin/rm $2.u_fffff
+/bin/rm $2.k_f
+/bin/rm $2.t111
+/bin/rm $2.u_f
+/bin/rm $2.u_ff
+/bin/rm $2.e_f
+/bin/rm $2.k_fff
+/bin/rm $2.t1
+/bin/rm $2.k_ff
+/bin/rm $2.dif
+
+
+
+

@@ -1,0 +1,15 @@
+2008-04-29 <wkpark@kldp.org>
+	* more cleanup
+	* use db.h instead of ndbm.h
+
+2002-09-28 <wkpark@kldp.org>
+	* automake처리
+
+
+2002-09-18 <shlee@yahoo.co.kr>
+	* 라이선스를 GPL로 바꿈 :)
+
+2002-09-17 <wkpark@kldp.org>
+	* 소스트리에 src, include, dict를 추가 및 정리
+	* KDICT_PATH를 쓰도록 수정
+

@@ -1,0 +1,39 @@
+#!/bin/csh -f
+#
+#
+# This program makes 
+#
+#     3. `Bigram Probabiliy'
+#
+#                        From LEARNING-CORPUS
+#
+setenv TOPDIR .
+echo 'Getting Tag-Sequences from LEARNING-CORPUS'
+$TOPDIR/gettagseq $1 > $1.t1
+echo 'DONE....'
+#
+# $1.t1 is Tag-Sequence
+#
+echo 'Making Bigrams from Tag-Sequences'
+$TOPDIR/tag2in1 $1.t1 $1.t2
+echo 'DONE....'
+/bin/rm -r $1.t1
+#
+#
+echo 'Sorting Bigrams'
+sort < $1.t2 > $1.t3
+echo 'DONE....'
+/bin/rm -r $1.t2
+#
+#
+
+
+echo 'Getting the Frequencies (Pair) Tag_(i-1) , Tag_(i)'
+$TOPDIR/freq < $1.t3 > $1.t4
+echo 'DONE....'
+/bin/rm $1.t3
+/bin/mv $1.t4 $2
+#
+#
+
+

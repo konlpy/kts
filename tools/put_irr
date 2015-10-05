@@ -1,0 +1,14 @@
+#!/bin/csh -f
+setenv TOPDIR .
+$TOPDIR/PutIrr b $1 Irregular/irr.b >! $1.t.b
+$TOPDIR/PutIrr d $1.t.b Irregular/irr.d >! $1.t.bd
+$TOPDIR/PutIrr h $1.t.bd Irregular/irr.h >! $1.t.bdh
+$TOPDIR/PutIrr l $1.t.bdh Irregular/irr.l >! $1.t.bdhl
+$TOPDIR/PutIrr s $1.t.bdhl Irregular/irr.s >! $1.t.bdhls
+$TOPDIR/PutIrr L $1.t.bdhls Irregular/irr.L >! $2
+/bin/rm $1.t.b
+/bin/rm $1.t.bd
+/bin/rm $1.t.bdh
+/bin/rm $1.t.bdhl
+/bin/rm $1.t.bdhls
+

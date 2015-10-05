@@ -1,0 +1,128 @@
+#!/bin/csh -f
+#
+# known word와 unknown word와의 비율을 구하는 program
+#
+#
+# UNKNOWNFREQ에는 다음과 같은 format으로 출력된다
+#
+#      ( tag , freq(known-word,tag) , freq(unknown-word,tag) ) 
+#
+#
+#
+#
+if ($#argv == 0) then       # if no argument
+   echo "Unknown Word의 Freq를 구한다."
+   echo "GetUnFreq 이미-태깅된-코퍼스 KTS에-의해-태깅된-코퍼스 UNKNOWNFREQ"
+   echo "Usage : GetUnFreq UnknownTrainingCrps TaggedCrpsByKTS UNKNOWNFREQ"
+   exit 1
+endif
+
+#
+#
+#
+awk ' { print "o", $0 } ' $1 > $1.qwe
+#
+#
+
+diff $1.qwe $2 | ediff >! $2.t1
+../spltdif $2.t1 $2.k_f $2.u_f $2.e_f
+../getdiff $2.u_f $2.t_d_f
+#
+echo "Getting Common Eojeols"
+#
+diff $2.t_d_f $1.qwe | ediff >! comm 
+awk ' /^o/ { print $2 } ' comm >! comm.area
+#
+echo "Done...."
+echo "Getting Unknown Eojeols"
+awk ' { print $2 } ' $2.t_d_f >! unkn.area
+echo "Done...."
+#
+#
+#
+#
+echo 'Getting first word from common.area'
+awk -F+ ' { print $1 } ' comm.area > comm.area.1
+echo 'Done....'
+#
+#
+
+#
+#
+echo 'Getting first word from unknown.area'
+awk -F+ ' { print $1 } ' unkn.area > unkn.area.1
+echo 'Done....'
+#
+#
+
+#
+#
+echo 'Getting tag of word from common.area'
+awk -F/ ' { print $2 } ' comm.area.1 > comm.area.2
+echo 'Done....'
+/bin/rm comm.area.1
+#
+#
+
+#
+#
+echo 'Getting tag of word from unknown.area'
+awk -F/ ' { print $2 } ' unkn.area.1 > unkn.area.2
+echo 'Done....'
+/bin/rm unkn.area.1
+#
+#
+
+#
+#
+echo 'Sorting tag of word from common.area'
+sort comm.area.2 > comm.area.3
+echo 'Done....'
+/bin/rm comm.area.2
+#
+#
+
+#
+#
+echo 'Sorting tag of word from unknown.area'
+sort unkn.area.2 > unkn.area.3
+echo 'Done....'
+/bin/rm unkn.area.2
+#
+#
+
+#
+#
+echo 'Getting Frequencies from common.area'
+freq < comm.area.3 > comm.area.4
+echo 'Done....'
+/bin/rm comm.area.3
+#
+#
+
+#
+#
+echo 'Getting Frequencies from unknown.area'
+freq < unkn.area.3 > unkn.area.4
+echo 'Done....'
+/bin/rm unkn.area.3
+#
+#
+
+#
+#
+echo 'Merging Frequencies : format (tag,known,unknown)'
+freqmrg comm.area.4 unkn.area.4 $3
+echo 'Done....'
+/bin/rm comm.area.4
+/bin/rm unkn.area.4
+/bin/rm $1.qwe
+/bin/rm $2.t1
+/bin/rm $2.u_f
+/bin/rm $2.k_f
+/bin/rm $2.t_d_f
+/bin/rm $2.e_f
+#
+#
+
+

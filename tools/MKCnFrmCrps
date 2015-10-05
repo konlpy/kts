@@ -1,0 +1,36 @@
+#!/bin/csh -f
+#
+#
+# This program makes 
+#
+#     2. `Connectability Matrix'
+#
+#                        From CORPUS
+#
+setenv TOPDIR .
+echo 'Making Tag-Sequence from CORPUS'
+$TOPDIR/gettagseq $1 > $1.t1
+echo 'DONE....'
+#
+# $1.t1 is Tag-Sequence
+#
+echo 'Getting Uniq Tag-Sequence'
+sort -u $1.t1 > $1.t1.uniq
+echo 'DONE....'
+/bin/rm -r $1.t1
+#
+#
+echo 'Appending int-sequence to Uniq Tag-Sequence'
+cat int_sequence >> $1.t1.uniq
+echo 'DONE....'
+#
+#
+echo 'Making Transition Table from Uniq Tag-Sequence'
+$TOPDIR/mktrntbl $1.t1.uniq $2
+echo 'DONE....'
+
+/bin/rm $1.t1.uniq
+
+#
+#
+

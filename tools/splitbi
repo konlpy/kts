@@ -1,0 +1,3 @@
+/0/ { print $2 , $3 > "intra.bi" }
+/1/ { print $2 , $3 > "inter.bi" }
+

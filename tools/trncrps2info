@@ -1,0 +1,30 @@
+#!/bin/csh -f
+#
+#
+# This program makes 
+#
+#     3. `Bigram Frequency'
+#
+#                        From CORPUS
+#
+if ($#argv == 0) then       # if no argument
+   echo "This program getting informations from Training-Corpus"
+   echo " 3. Bigram   Probability : Freq(Tag_(i+1)|Tag_(i))"
+   echo "Usage : trncrps2info TRAINING-CORPUS TRANFREQ"
+   exit 1
+endif
+#
+# Part 3.
+#
+echo '================================='
+echo ' 4. Making Bigram Probability    '
+echo '================================='
+#
+MKBiFrmLCrps $1 $2
+# 
+echo '====================='
+echo '........End..........'
+echo '====================='
+#
+#
+

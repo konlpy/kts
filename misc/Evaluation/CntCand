@@ -1,0 +1,13 @@
+#!/bin/csh -f
+echo '****The number of Candidates***'
+grep "^o " $1 > $1.kn
+grep "^x " $1 > $1.unk
+
+echo '***Known-Word Candidates***'
+awk ' { SS = SS + NF - 1 } END { print SS } ' $1.kn
+echo '***Unknown-Word Candidates***'
+awk ' { SS = SS + NF - 1 } END { print SS } ' $1.unk
+echo '************'
+echo '************'
+
+

@@ -1,0 +1,60 @@
+#!/bin/csh -f
+#
+#
+# This program makes 
+#
+#     3. `Bigram Probabiliy'
+#
+#                        From LEARNING-CORPUS
+#
+setenv TOPDIR .
+if ($#argv == 0) then       # if no argument
+   echo "This program getting Bigram Probabilities Inter & Intra from corpus"
+   echo "Usage : MKBiFromCrps CORPUS INTER.PROB INTRA.PROB"
+   exit 1
+endif
+#
+#
+#
+#
+#
+$TOPDIR/gettagseq $1 > $1.t1
+echo 'DONE....'
+#
+# $1.t1 is Tag-Sequence
+#
+echo 'Making Bigrams from Tag-Sequences'
+$TOPDIR/tag2in2 $1.t1 $1.t2
+echo 'DONE....'
+/bin/rm $1.t1
+#
+#
+echo 'Sorting Bigrams'
+sort < $1.t2 > $1.t3
+echo 'DONE....'
+/bin/rm $1.t2
+#
+#
+
+echo 'Spliting Inter , Intra-Bigram'
+awk -f splitbi $1.t3
+echo 'DONE....'
+/bin/rm $1.t3
+#
+#
+
+echo 'Getting the Inter-Frequencies Tag_(i-1) , Tag_(i)' 
+$TOPDIR/freq < inter.bi > $1.t4
+echo 'DONE....'
+/bin/rm inter.bi
+/bin/mv $1.t4 $2
+#
+#
+
+echo 'Getting the Intra-Frequencies Tag_(i-1) , Tag_(i)'
+$TOPDIR/freq < intra.bi > $1.t5
+echo 'DONE....'
+/bin/rm intra.bi
+/bin/mv $1.t5 $3
+#
+#

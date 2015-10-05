@@ -1,0 +1,51 @@
+
+GetUnFreq는 KTS에서 필요로 하는 UNKNOWNFREQ를 구하는 
+프로그램입니다.
+
+UNKNOWNFREQ는 P(t_i^j|t_i^j+1,m_i^j+1)를 갖고 있는
+화일입니다.
+
+UNKNOWNFREQ를 구하기 위해서는 다음과 같이 합니다.
+
+---
+GetUnFreq 이미-태깅된-코퍼스 KTS에-의해-태깅된-코퍼스 UNKNOWNFREQ
+--- 
+
+이것은 KTS를 이용하여 태깅할 경우 미등록어일 경우는
+앞에 `x'가 오고 등록어일 경우 `o'가 온다는 특징을 이용하여
+계산하는 것입니다.
+ 
+
+==========================실행 예=======================
+
+[csone]GetUNKNOWNFREQ> GetUnFreq
+Unknown Word의 Freq를 구한다.
+GetUnFreq 이미-태깅된-코퍼스 KTS에-의해-태깅된-코퍼스 UNKNOWNFREQ
+Usage : GetUnFreq UnknownTrainingCrps TaggedCrpsByKTS UNKNOWNFREQ
+[csone]GetUNKNOWNFREQ> GetUnFreq newUnTrn.Tag newun.byKTS UNKNOWNFREQ
+Getting Common Eojeols
+Done....
+Getting Unknown Eojeols
+Done....
+Getting first word from common.area
+Done....
+Getting first word from unknown.area
+Done....
+Getting tag of word from common.area
+Done....
+Getting tag of word from unknown.area
+Done....
+Sorting tag of word from common.area
+Done....
+Sorting tag of word from unknown.area
+Done....
+Getting Frequencies from common.area
+Done....
+Getting Frequencies from unknown.area
+Done....
+Merging Frequencies : format (tag,known,unknown)
+Done....
+[csone]GetUNKNOWNFREQ> 
+
+
+

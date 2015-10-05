@@ -1,0 +1,22 @@
+#!/bin/csh -f
+#
+#
+#  $1 : TAGGEDTEST         $2 : compare
+#
+#
+if ($#argv == 0) then       # if no argument
+   echo "Tagging 정확률을 등록어,미등록어를 모두 합쳐서 비교한다."
+   echo "Known , Unknown을 전부 합해서 계산"
+   echo "Usage : DoTest 이미-태깅된-것 KTS에-의해-태깅된-것"
+   exit 1
+endif
+
+awk ' { print $2 } ' $2 >! $2.t1
+diff $1 $2.t1 | ediff >! $2.dif
+awk ' { print $1 } ' $2.dif >! $2.ddif
+../calcdiff $2.ddif
+
+/bin/rm $2.t1
+#/bin/rm $2.dif
+/bin/rm $2.ddif
+

@@ -1,0 +1,29 @@
+
+ INSTALLATION ON THE UNIX PLATFORM
+ ---------------------------------
+
+ To install KTS, you will need:
+
+  * make
+  * an ANSI C compiler
+  * a development environment in form of development libraries and C
+    header files
+  * a supported Unix operating system
+  * automake, autoconf etc. for svn user
+
+ Quick Start
+ -----------
+
+ If you want to just get on with it, do:
+
+  $ ./configure
+  $ make
+
+ If you want to rebuild it with the svn version, do:
+
+  $ automake
+  $ autoconf
+  $ ./configure
+  $ make
+
+ Please see detail instructions at http://wiki.kldp.org/wiki.php/KTS

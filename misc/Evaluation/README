@@ -1,0 +1,35 @@
+
+ KTS에 의해 태깅된 결과를 평가하기 위해서는 
+ DoTest, DoTest2가 있다. 
+
+ DoTest는 전체적으로 비교하는 것이고, 
+ DoTest2는 등록어와 미등록어를 각각 나누어서 비교하는 것이다.
+ 
+ 사용 예는 다음과 같다.
+
+========================== 사용 예 ========================
+
+[csone]Evaluation> DoTest
+Tagging 정확률을 등록어,미등록어를 모두 합쳐서 비교한다.
+Known , Unknown을 전부 합해서 계산
+Usage : DoTest 이미-태깅된-것 KTS에-의해-태깅된-것
+[csone]Evaluation> DoTest newTest.Tag newTest.ByKTS
+어절 단위로 볼 때 틀린 갯수 : 798
+형태소 단위로 볼 때 틀린 갯수 : 1072
+[csone]Evaluation> DoTest2 newTest.Tag newTest.ByKTS
+splitdif done....
+getting known word done....
+********The number of failures of Known Word*********
+어절 단위로 볼 때 틀린 갯수 : 541
+형태소 단위로 볼 때 틀린 갯수 : 656
+********The number of failures of UnKnown Word*******
+어절 단위로 볼 때 틀린 갯수 : 257
+형태소 단위로 볼 때 틀린 갯수 : 418
+****The number of Unknown Eojeol****
+729
+****The number of Unknown Morpheme***
+1470
+[csone]Evaluation> 
+
+
+

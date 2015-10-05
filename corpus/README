@@ -1,0 +1,58 @@
+
+=========================================
+
+          README on Corpus
+
+=========================================
+
+Corpus Directory에는 Tagged와 UnTagged로 되어 있다.
+
+ /UnTagged : tagging되어 있지 않은 corpus.
+
+  32 dialogue.all       : 대화체 : hotel 예약
+   2 hotel1             : 대화체 : hotel 예약
+   1 hotel2             : 대화체 : hotel 예약
+  19 hotel3             : 대화체 : hotel 예약
+ 232 address.orig       : 신문 사설 전체 text 
+  39 address.raw        : 신문 사설에서 태깅된 부분만 있는 text
+   7 barun              : 국민 학교 바른 생활
+ 288 dragon1            : 소설 `용의 전설'
+   1 kukmin             : 국민교육헌장
+  18 abstract.raw       : 논문 초록
+   3 newadduntrn.raw    : 신문 사설에서 미등록어를 고려하기 위해 사용된 text
+  14 newdragunk.raw     : 용의 전설에서 미등록어를 ...
+  21 newdragtest.raw    : 용의 전설에서 test부분에 해당
+  10 newabstunk.raw     : 논문 초록에서 미등록어를 ...
+   6 newaddtest.raw     : 신문 사설에서 test부분에 해당
+   8 newabstest.raw     : 논문 초록에서 test부분에 해당
+  26 newUnTrn.raw       : 미등록어에 대한 정보를 얻기 위해 사용된 text
+  35 newTest.raw        : 실험에 사용된 text
+ 368 TotCrps.raw        : 전체 text
+
+
+ /Tagged : tagging된 corpus 
+ 
+  30 newdragunk.Tag     : 용의 전설에서 미등록어를 위한 부분..
+  45 newdragtest.Tag    : 용의 전설에서 test에 사용된 부분..
+   6 newadduntrn.Tag    : 신문 사설에서 미등록어를 위한 부분..
+  12 newaddtest.Tag     : 신문 사설에서 test에 사용된 부분..
+  20 newabstunk.Tag     : 논문 초록에서 미등록어를 위한 부분..
+  16 newabstest.Tag     : 논문 초록에서 test에 사용된 부분 
+ 704 newTrn.Tag         : Training을 하기 위해 사용된 부분..
+  55 newUnTrn.Tag       : 미등록어의 정보를 얻기 위해 사용된 부분
+  72 newTest.Tag        : 실험에 사용된 text
+  83 address.Tag        : 신문 사설 text
+  36 abstract.Tag       : 논문 초록 text
+ 832 TotCrps.Tag        : 전체 text 
+
+
+KTS가 갖고 있는 parameter들은 다음과 같은 방법에 의해 얻어졌다.
+
+newTrn.Tag를 이용하여 품사 전이 확률과 어휘 확률을 얻는다.
+그 후, newUnTrn.raw를 이용하여 tagging을 해서 newUnTrn.Tag와 
+비교하여 `미등록어 발생 확률'을 얻는다.
+KTS의 성능을 알아보기 위해서는 newTest.raw를 태깅하여
+newTest.Tag와 비교하였다.
+
+
+

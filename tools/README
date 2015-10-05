@@ -1,0 +1,222 @@
+-------------------------------------------------------
+
+  Korean Tagging System : kts Tools
+
+                         S.H.Lee
+
+-------------------------------------------------------
+
+---Corpus To Information---
+
+  crps2info* : Shell Program 
+	   Tagged Corpus를 이용하여 사전(total.dict) Connetability Matrix(TRANTBL)를 만든다.
+
+	   Usage : crps2info [사용할 CORPUS] [사전이름] [TRANTBL]
+
+     MKDctFrmCrps* : crps2info에서 call하는 Shell Program 
+              Make Dictionary From Corpus : Tagged Corpus에서 사전을 만든다. 
+ 			   
+   	      Usage : MKDctFrmCrps CORPUS DICT
+
+     MKCnFrmCrps* : crps2info에서 call하는 Shell Program
+	      Make Connectability Matrix From Corpus 
+
+	      Usage : MKCnFrmCrps CORPUS TRANTBL
+  
+---Learning(Training) Corpus To Information---
+
+  lrncrps2info* : Shell Program
+	  Training Corpus에서
+				   
+	  P(Tag_(i)|Tag_(i-1))를 만든다.
+
+          Usage : lrncrps2info Traing-Corpus TRANFREQ
+
+  MKMrgnFrmLCrps* : lrncrps2info에서 call하는 Shell Program 
+          (이것은  KTS ver 0.9부터는 사용하지 않는다.)
+	  Make Marginal Probability From Training-Corpus
+				 
+	  Usage : MKMrgnFrmLCrps Traing-Corpus TAGFREQ
+
+  MKBiFrmLCrps* : lrncrps2info에서 call하는 Shell Program
+	  Make Bigram Probability From Training-Corpus
+
+	  Usage : MKBiFrmLCrps Traing-Corpus TRANFREQ
+
+
+---불규칙 용언들---
+
+  irr.d : `ㄷ' 불규칙
+  irr.l : `르' 불규칙
+  irr.h : `ㅎ' 불규칙
+  irr.s : `ㅅ' 불규칙
+  irr.L : `러' 불규칙
+  irr.b : `ㅂ' 불규칙
+  
+  PutIrr.c : 사전에 불규칙 tag를 삽입하는 프로그램
+  put_irr* : crps2info에서 call하는 Shell Program
+			 사전에 모든 불규칙 tag를 삽입한다.
+
+---ETC---
+
+  mkbiprob.c : TAGFREQ를 이용하여 TRANPROB를 만든다.
+			   Make-Bigram-Probability
+
+  tag2in1.c : Tag Sequence를 Bigram Sequence로 만든다.
+  
+  mktrntbl.c : Make Transition Table : TRANTBL을 만든다.
+ 
+  freq.c : Frequency를 계산한다.
+  
+  gettagseq.c : CORPUS에서 Tag만 추출하는 프로그램
+  
+  wordambi.c : Prob(Tag|Word)를 계산하는 프로그램
+
+  int_sequence : 
+  appenddict   : 
+  splitdict    : 
+  gethan       : AWK Program
+
+  LEARNGCORPUS
+
+
+========================= 사용 예 ============================
+
+[csone]Tool> crps2info
+This program getting informations from corpus
+ 1. Dictionary with probabilities , irr-codes
+ 2. Connetability Matrix based on corpus
+Usage : corpus2info CORPUS DICT TRANTBL 
+[csone]Tool> crps2info ../Corpus/Tagged/newTrn.Tag total.dict TRANTBL
+=================================
+ 1. Making Dictionary with prob  
+=================================
+Getting all the words from CORPUS
+DONE....
+Sorting all the words
+DONE....
+Getting all the hanguel-words from Word-Tag Pairs
+DONE....
+Getting Frequencies of Word-Tag Pairs
+DONE....
+write (Tag , Word , Frequency)
+DONE....
+Splitting the Dictionary into Not-YeongEon and YeongEon
+DONE....
+Putting the irr-code into YeongEon-Dictionary
+DONE....
+Merging the Not-YeongEon and YeongEon with irr-code
+DONE....
+Now, The Dictionary with Probability is  total.dict
+=====================
+........End..........
+=====================
+=================================
+ 2. Making Connectability Matrix 
+=================================
+Making Tag-Sequence from CORPUS
+DONE....
+Getting Uniq Tag-Sequence
+DONE....
+Appending int-sequence to Uniq Tag-Sequence
+DONE....
+Making Transition Table from Uniq Tag-Sequence
+DONE....
+=====================
+........End..........
+=====================
+[csone]Tool> more total.dict
+a 가끔 3
+a 가끔씩 4
+a 가득 9
+a 가득히 3
+a 가만히 1
+a 가장 36
+a 간곡히 1
+a 간단히 2
+a 간혹 1
+a 감히 8
+a 갑자기 64
+a 강력히 2
+a 같이 12
+
+. .
+. .
+. .
+
+. .
+
+xn 적 89
+xn 짜리 11
+xn 째 9
+xn 쯤 33
+xpa 스럽 38 b
+xpa 하 452
+xpv 되 258
+xpv 시키 27
+xpv 하 1830
+int 으 1
+[csone]Tool> more TRANTBL
+0111111011111111111111111111111111110111011010000100000
+0000000010100010000011000000000010000000000000000000010
+0110110010000000000000000000000000000000000000000000010
+0000000011010011001001110100000111000000000000000000010
+0010000010101010100101000100100011110111100010000000010
+
+.        .          .                  . 
+.        .          .                  .
+
+.        .          .                  . 
+
+0000000000000000000000000000000000000000011111011000100
+0000000000000000000000000000000000000001001000000000010
+0000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000011111011000000
+[csone]Tool> trncrps2info ../Corpus/Tagged/newTrn.Tag TRANFREQ
+=================================
+ 4. Making Bigram Probability    
+=================================
+Getting Tag-Sequences from LEARNING-CORPUS
+DONE....
+Making Bigrams from Tag-Sequences
+DONE....
+Sorting Bigrams
+DONE....
+Getting the Frequencies (Pair) Tag_(i-1) , Tag_(i)
+DONE....
+=====================
+........End..........
+=====================
+[csone]Tool> more TRANFREQ 
+INI a 535
+INI ad 30
+INI ajs 315
+INI at 149
+INI f 377
+INI i 861
+INI jcp 3
+INI jx 1
+INI m 41
+INI md 350
+INI mn 88
+
+.   .  .
+.   .  .
+
+.   .  .
+
+
+xpa exn 8
+xpa xa 59
+xpv ecq 91
+xpv ecs 221
+xpv ecx 340
+xpv ef 186
+xpv efp 605
+xpv exm 609
+xpv exn 58
+xpv xa 5
+[csone]Tool> 
+
+
+
